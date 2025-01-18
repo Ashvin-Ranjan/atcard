@@ -1,19 +1,25 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import { PAGES_DIR } from './consts';
 const path = require('node:path')
 
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 600,
-    height: 400
+    height: 400,
+    title: "Atcard",
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js')
+    },
   });
 
-  const indexHTML = path.join(PAGES_DIR + '/index.html');
+  const indexHTML = path.join(__dirname, PAGES_DIR, '/index.html');
   win.loadFile(indexHTML)
 }
 
 app.on('ready', () => {
   console.log('App is ready');
+
+  ipcMain.handle('ping', () => 'pong')
 
   createWindow()
 
