@@ -1,1 +1,0 @@
-export const PAGES_DIR: string = "pages"
