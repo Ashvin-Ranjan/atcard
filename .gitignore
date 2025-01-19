@@ -1,13 +1,15 @@
 node_modules
+dist
+out
+*.log*
 
 # Output
 .output
 .vercel
-.netlify
-.wrangler
 /.svelte-kit
 /build
-/electron-build
+/.vscode
+/.idea
 
 # OS
 .DS_Store
