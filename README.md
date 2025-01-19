@@ -1,4 +1,4 @@
-# electron-vite-sveltekit
+# atcard
 
 An Electron application with Svelte and TypeScript
 
@@ -11,24 +11,24 @@ An Electron application with Svelte and TypeScript
 ### Install
 
 ```bash
-$ npm install
+$ yarn
 ```
 
 ### Development
 
 ```bash
-$ npm run dev
+$ yarn dev
 ```
 
 ### Build
 
 ```bash
 # For windows
-$ npm run build:win
+$ yarn build:win
 
 # For macOS
-$ npm run build:mac
+$ yarn build:mac
 
 # For Linux
-$ npm run build:linux
+$ yarn build:linux
 ```

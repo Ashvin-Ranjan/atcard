@@ -20,4 +20,4 @@ module.exports = {
   rules: {
     'svelte/no-unused-svelte-ignore': 'off'
   }
-};
+}
