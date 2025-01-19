@@ -5,7 +5,6 @@ body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background-image: url('./wavy-lines.svg');
   background-size: cover;
   user-select: none;
 }
@@ -118,6 +117,22 @@ code {
   background-color: var(--ev-button-alt-bg);
 }
 
+.action button {
+  cursor: pointer;
+  display: inline-block;
+  border: 1px solid transparent;
+  text-align: center;
+  font-weight: 600;
+  white-space: nowrap;
+  border-radius: 20px;
+  padding: 0 20px;
+  line-height: 38px;
+  font-size: 14px;
+  border-color: var(--ev-button-alt-border);
+  color: var(--ev-button-alt-text);
+  background-color: var(--ev-button-alt-bg);
+}
+
 .action a:hover {
   border-color: var(--ev-button-alt-hover-border);
   color: var(--ev-button-alt-hover-text);
@@ -149,6 +164,11 @@ code {
   &:last-child {
     border: none;
   }
+}
+
+a {
+  color: #759fcd;
+  font-weight: bold;
 }
 
 @media (max-width: 720px) {
