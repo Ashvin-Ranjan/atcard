@@ -2,9 +2,9 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
-import { load_decks } from './loader'
+import { loadDecks } from './loader'
 
-function createWindow(): void {
+const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 900,
@@ -36,6 +36,22 @@ function createWindow(): void {
   }
 }
 
+// Set up API
+const apiSetup = () => { 
+  ipcMain.handle('decks/all', async () => {
+    const decks = await loadDecks(app)
+    if (decks == null) {
+      throw Error('Could not load decks')
+    }
+    return decks
+  })
+
+  ipcMain.handle('decks/directory', async () => {
+    return join(app.getPath('userData'), 'decks')
+  })
+
+}
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -50,16 +66,7 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window)
   })
 
-  // IPC test
-  ipcMain.on('ping', () => console.log('pong'))
-
-  ipcMain.handle('decks/fetch', async () => {
-    const decks = await load_decks(app)
-    if (decks == null) {
-      throw Error('Could not load decks')
-    }
-    return decks
-  })
+  apiSetup()
 
   createWindow()
 

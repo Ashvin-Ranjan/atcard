@@ -4,8 +4,8 @@ import { type Deck } from '../globals/types'
 
 // Custom APIs for renderer
 const api = {
-  ping: (): void => electronAPI.ipcRenderer.send('ping'),
-  fetch_decks: async (): Promise<Deck[]> => electronAPI.ipcRenderer.invoke('decks/fetch')
+  fetchDecks: async (): Promise<Deck[]> => electronAPI.ipcRenderer.invoke('decks/all'),
+  fetchDeckDirectory: async (): Promise<string> => electronAPI.ipcRenderer.invoke('decks/directory')
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

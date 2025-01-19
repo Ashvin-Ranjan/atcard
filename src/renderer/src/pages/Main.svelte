@@ -5,11 +5,20 @@
 
   if (globals.decks == null) {
     window.api
-      .fetch_decks()
+      .fetchDecks()
       .then((v) => {
         globals.decks = v
+        if (v.length == 0) {
+          window.api
+            .fetchDeckDirectory()
+            .then((v) => {
+              globals.deckPath = v
+            })
+            .catch((_) => (error = true))
+        }
       })
-      .catch((_) => {
+      .catch((e) => {
+        console.log(e)
         error = true
       })
   }
@@ -17,10 +26,10 @@
 
 {#if error}
   <p class="error">Error loading decks</p>
-{:else if globals.decks == null}
+{:else if globals.decks == null || (globals.decks.length == 0 && !globals.deckPath)}
   <p class="tip">Loading...</p>
 {:else if globals.decks.length == 0}
-  <p class="tip">No Decks</p>
+  <p class="tip">No Decks, start by adding one to <code>{globals.deckPath}</code></p>
 {:else}
   <p class="tip">Decks</p>
   {#each globals.decks as deck}

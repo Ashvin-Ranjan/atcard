@@ -4,7 +4,7 @@ import { join } from 'path'
 import fs from 'fs/promises'
 import StreamZip from 'node-stream-zip'
 
-export const load_decks = async (app: App): Promise<Deck[] | null> => {
+export const loadDecks = async (app: App): Promise<Deck[] | null> => {
   const deck_dir = join(app.getPath('userData'), 'decks')
   try {
     const potential_decks = (await fs.readdir(deck_dir)).filter((v) => v.endsWith('.zip'))
@@ -28,6 +28,7 @@ export const load_decks = async (app: App): Promise<Deck[] | null> => {
     try {
       user_data = JSON.parse((await fs.readFile(join(deck_dir, 'user_data.json'))).toString())
     } catch (e) {
+      console.log(e)
       if (e instanceof SyntaxError) {
         return null
       }

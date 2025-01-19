@@ -8,8 +8,8 @@ export interface Deck {
 }
 
 export interface Api {
-  ping: () => void
-  fetch_decks: () => Promise<Deck[]>
+  fetchDecks: () => Promise<Deck[]>
+  fetchDeckDirectory: () => Promise<string>
 }
 
 export interface DeckManifestInfo {
