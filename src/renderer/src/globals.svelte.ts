@@ -1,9 +1,13 @@
+import { type Deck } from '../../globals/types'
+
 type Routes = 'home'
 
 interface Globals {
-  route: Routes;
+  route: Routes
+  decks?: Deck[]
 }
 
 export const globals: Globals = $state({
-  route: 'home'
-});
+  route: 'home',
+  decks: null
+})

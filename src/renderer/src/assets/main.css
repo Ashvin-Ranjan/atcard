@@ -71,6 +71,13 @@ code {
   font-weight: 600;
 }
 
+.error {
+  font-size: 16px;
+  line-height: 24px;
+  color: #ff7777;
+  font-weight: 600;
+}
+
 .svelte {
   background: -webkit-linear-gradient(315deg, #ff3e00 35%, #647eff);
   background-clip: text;

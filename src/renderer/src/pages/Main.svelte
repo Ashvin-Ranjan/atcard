@@ -1,21 +1,31 @@
 <script lang="ts">
-  const ipcHandle = (): void => window.electron.ipcRenderer.send('ping');
+  import { globals } from '../globals.svelte'
+
+  let error = $state(false)
+
+  if (globals.decks == null) {
+    window.api
+      .fetch_decks()
+      .then((v) => {
+        globals.decks = v
+      })
+      .catch((_) => {
+        error = true
+      })
+  }
 </script>
 
-<div class="creator">Powered by electron-vite</div>
-<div class="text">
-  Build an Electron app with
-  <span class="svelte">Svelte</span>
-  and
-  <span class="ts">TypeScript</span>
-</div>
-<p class="tip">Please try pressing <code>F12</code> to open the devTool</p>
-<div class="actions">
-  <div class="action">
-    <a href="https://electron-vite.org/" target="_blank" rel="noreferrer">Documentation</a>
-  </div>
-  <div class="action">
-    <!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions a11y-missing-attribute-->
-    <a target="_blank" rel="noreferrer" onclick={ipcHandle}>Send IPC</a>
-  </div>
-</div>
+{#if error}
+  <p class="error">Error loading decks</p>
+{:else if globals.decks == null}
+  <p class="tip">Loading...</p>
+{:else if globals.decks.length == 0}
+  <p class="tip">No Decks</p>
+{:else}
+  <p class="tip">Decks</p>
+  {#each globals.decks as deck}
+    <div>
+      {deck.name}
+    </div>
+  {/each}
+{/if}

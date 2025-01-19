@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { globals } from "../globals.svelte";
+  import { globals } from '../globals.svelte'
 
-  const versions = window.electron.process.versions;
+  const versions = window.electron.process.versions
 </script>
 
 <ul class="versions">

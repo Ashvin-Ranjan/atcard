@@ -2,6 +2,7 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import { load_decks } from './loader'
 
 function createWindow(): void {
   // Create the browser window.
@@ -51,6 +52,14 @@ app.whenReady().then(() => {
 
   // IPC test
   ipcMain.on('ping', () => console.log('pong'))
+
+  ipcMain.handle('decks/fetch', async () => {
+    const decks = await load_decks(app)
+    if (decks == null) {
+      throw Error('Could not load decks')
+    }
+    return decks
+  })
 
   createWindow()
 
