@@ -78,6 +78,24 @@ code {
   font-weight: 600;
 }
 
+.wrong {
+  font-size: 16px;
+  line-height: 24px;
+  color: #ff7777;
+}
+
+.correct {
+  font-size: 16px;
+  line-height: 24px;
+  color: #77ff7e;
+}
+
+.mixup {
+  font-size: 16px;
+  line-height: 24px;
+  color: #e2ff77;
+}
+
 .svelte {
   background: -webkit-linear-gradient(315deg, #ff3e00 35%, #647eff);
   background-clip: text;

@@ -6,7 +6,6 @@ import type { Api } from '../../globals/types'
 
 declare global {
   interface Window {
-    electron: ElectronAPI
     api: Api
   }
 }

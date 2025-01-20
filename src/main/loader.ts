@@ -16,7 +16,7 @@ export const loadDecks = async (app: App): Promise<Deck[] | null> => {
             const manifest = JSON.parse((await zip.entryData('test_deck/manifest.json')).toString())
             const concepts = JSON.parse((await zip.entryData('test_deck/concepts.json')).toString())
             await zip.close()
-            return { ...manifest, total_concepts: Object.values(concepts).length }
+            return { ...manifest, totalConcepts: Object.values(concepts).length }
           } catch {
             await zip.close()
             return null
@@ -37,7 +37,7 @@ export const loadDecks = async (app: App): Promise<Deck[] | null> => {
     }
     return decks.map((deck) => ({
       ...deck,
-      studied: deck.id in (user_data.deck ?? {}) ? user_data.deck[deck.id].in_review.length : 0
+      studied: deck.id in (user_data.deck ?? {}) ? user_data.deck[deck.id].inReview.length : 0
     }))
   } catch {
     fs.mkdir(deck_dir)

@@ -5,7 +5,7 @@
 
 <div class="text">Atcard has encountered an error</div>
 <p class="tip">
-  Please open an error on
+  Please open an issue on
   <a href="https://github.com/Ashvin-Ranjan/atcard/issues" target="_blank" rel="noreferrer"
     >GitHub</a
   >
@@ -15,7 +15,6 @@
     <button
       onclick={() => {
         globals.route = 'home'
-        console.log('test')
       }}>Return</button
     >
   </div>

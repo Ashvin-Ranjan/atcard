@@ -25,7 +25,12 @@
 </script>
 
 {#if error}
-  <p class="error">Error loading decks</p>
+  <p class="error">
+    Error loading decks, please open an issue on
+    <a href="https://github.com/Ashvin-Ranjan/atcard/issues" target="_blank" rel="noreferrer">
+      GitHub
+    </a>
+  </p>
 {:else if globals.decks == null || (globals.decks.length == 0 && !globals.deckPath)}
   <p class="tip">Loading...</p>
 {:else if globals.decks.length == 0}

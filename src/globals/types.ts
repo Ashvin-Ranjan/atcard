@@ -3,13 +3,27 @@ export interface Deck {
   name: string
   description: string
   language: string[]
-  total_concepts: number
+  totalConcepts: number
   studied: number
+}
+
+export interface Review {
+  conceptId: string
+  inputString: string
+  translation: string
+  tips: string[]
+  answers: string[]
+  mixups: Record<string, string>
 }
 
 export interface Api {
   fetchDecks: () => Promise<Deck[]>
   fetchDeckDirectory: () => Promise<string>
+  versions: {
+    chrome: string
+    electron: string
+    node: string
+  }
 }
 
 export interface DeckManifestInfo {
@@ -17,5 +31,5 @@ export interface DeckManifestInfo {
   name: string
   language: string[]
   description: string
-  total_concepts: number
+  totalConcepts: number
 }
