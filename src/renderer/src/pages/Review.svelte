@@ -45,9 +45,6 @@
       currResult = null
       currAnswer = ''
     }
-    if (e.key == 'l') {
-      inputField.focus()
-    }
   }}
 />
 {#if !!globals.currReviews}
