@@ -28,6 +28,11 @@
   let currResult: number | null = $state(null)
   let mixupText: string = $state('')
   let currReview = $derived(globals.currReviews ? globals.currReviews[reviewIndex] : null)
+  let inputField = $state(null)
+  $effect(() => {
+    currResult
+    inputField.focus()
+  })
 </script>
 
 <svelte:window
@@ -40,13 +45,16 @@
       currResult = null
       currAnswer = ''
     }
+    if (e.key == 'l') {
+      inputField.focus()
+    }
   }}
 />
 {#if !!globals.currReviews}
   <p>
     {currReview.inputString}
   </p>
-  <input bind:value={currAnswer} disabled={!!currResult} />
+  <input bind:this={inputField} bind:value={currAnswer} disabled={!!currResult} />
   {#if currResult == 0}
     <p class="mixup">{mixupText}</p>
   {:else if currResult == 1}
