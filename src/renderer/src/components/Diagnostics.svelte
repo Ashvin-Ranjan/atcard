@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { globals } from '../globals.svelte'
+  import { globals } from '../globals.svelte';
 </script>
 
 <ul class="versions">

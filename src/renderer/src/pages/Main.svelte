@@ -1,26 +1,26 @@
 <script lang="ts">
-  import { globals } from '../globals.svelte'
+  import { globals } from '../globals.svelte';
 
-  let error = $state(false)
+  let error = $state(false);
 
   if (globals.decks == null) {
     window.api
       .fetchDecks()
       .then((v) => {
-        globals.decks = v
+        globals.decks = v;
         if (v.length == 0) {
           window.api
             .fetchDeckDirectory()
             .then((v) => {
-              globals.deckPath = v
+              globals.deckPath = v;
             })
-            .catch((_) => (error = true))
+            .catch((_) => (error = true));
         }
       })
       .catch((e) => {
-        console.log(e)
-        error = true
-      })
+        console.log(e);
+        error = true;
+      });
   }
 </script>
 

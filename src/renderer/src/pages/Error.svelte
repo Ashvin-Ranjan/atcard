@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { globals } from '../globals.svelte'
-  import Diagnostics from '../components/Diagnostics.svelte'
+  import { globals } from '../globals.svelte';
+  import Diagnostics from '../components/Diagnostics.svelte';
 </script>
 
 <div class="text">Atcard has encountered an error</div>
@@ -14,7 +14,7 @@
   <div class="action">
     <button
       onclick={() => {
-        globals.route = 'home'
+        globals.route = 'home';
       }}>Return</button
     >
   </div>

@@ -1,49 +1,49 @@
 <script lang="ts">
-  import { globals } from '../globals.svelte'
+  import { globals } from '../globals.svelte';
 
   const submitAnswer = () => {
-    if (!currAnswer) return
-    mixupText = ''
+    if (!currAnswer) return;
+    mixupText = '';
     if (!!currResult) {
-      currResult = null
-      reviewIndex += 1
-      currAnswer = ''
+      currResult = null;
+      reviewIndex += 1;
+      currAnswer = '';
       if (reviewIndex >= globals.currReviews.length) {
-        globals.route = 'deck'
+        globals.route = 'deck';
       }
-      return
+      return;
     }
     if (currReview.answers.includes(currAnswer)) {
-      currResult = 1
+      currResult = 1;
     } else if (Object.keys(currReview.mixups).includes(currAnswer)) {
-      currResult = 0
-      mixupText = currReview.mixups[currAnswer]
+      currResult = 0;
+      mixupText = currReview.mixups[currAnswer];
     } else {
-      currResult = 2
+      currResult = 2;
     }
-  }
+  };
 
-  let reviewIndex: number = $state(0)
-  let currAnswer: string = $state('')
-  let currResult: number | null = $state(null)
-  let mixupText: string = $state('')
-  let currReview = $derived(globals.currReviews ? globals.currReviews[reviewIndex] : null)
-  let inputField = $state(null)
+  let reviewIndex: number = $state(0);
+  let currAnswer: string = $state('');
+  let currResult: number | null = $state(null);
+  let mixupText: string = $state('');
+  let currReview = $derived(globals.currReviews ? globals.currReviews[reviewIndex] : null);
+  let inputField = $state(null);
   $effect(() => {
-    currResult
-    inputField.focus()
-  })
+    currResult;
+    inputField.focus();
+  });
 </script>
 
 <svelte:window
   onkeydown={(e) => {
     if (e.key == 'Enter') {
-      submitAnswer()
+      submitAnswer();
     }
     if (e.key == 'Backspace' && !!currResult) {
-      mixupText = ''
-      currResult = null
-      currAnswer = ''
+      mixupText = '';
+      currResult = null;
+      currAnswer = '';
     }
   }}
 />
@@ -65,7 +65,7 @@
     <div class="action">
       <button
         onclick={() => {
-          globals.route = 'home'
+          globals.route = 'home';
         }}>Return</button
       >
     </div>
