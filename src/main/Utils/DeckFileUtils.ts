@@ -5,7 +5,7 @@ import fs from 'fs/promises';
 
 export const loadDeckShallow = async (
   deck_name: string,
-  app_dir: string
+  app_dir: string,
 ): Promise<DeckShallow | null> => {
   let out: any = {};
   const zip = new StreamZip.async({ file: join(app_dir, 'decks', `${deck_name}.zip`) });
@@ -28,7 +28,7 @@ export const loadDeckShallow = async (
 
   try {
     const review_data = JSON.parse(
-      (await fs.readFile(join(app_dir, 'deck_data', `${deck_name}.json`))).toString()
+      (await fs.readFile(join(app_dir, 'deck_data', `${deck_name}.json`))).toString(),
     );
     out.studied = !!review_data.reviews ? review_data.reviews.length : 0;
   } catch {

@@ -20,7 +20,7 @@ export const loadDecks = async (app: App): Promise<DeckShallow[] | null> => {
       .map((v) => v.substring(0, v.length - 4));
     return (
       await Promise.all(
-        potential_decks.map(async (deck) => loadDeckShallow(deck, app.getPath('userData')))
+        potential_decks.map(async (deck) => loadDeckShallow(deck, app.getPath('userData'))),
       )
     ).filter((v) => !!v);
   } catch (e) {
