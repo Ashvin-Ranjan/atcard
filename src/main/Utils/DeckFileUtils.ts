@@ -1,5 +1,5 @@
 import { join } from 'path';
-import { ConceptShallow, Deck, DeckManifest, DeckShallow } from '../../globals/types';
+import { Concept, ConceptShallow, Deck, DeckManifest, DeckShallow } from '../../globals/types';
 import StreamZip from 'node-stream-zip';
 import fs from 'fs/promises';
 
@@ -64,10 +64,36 @@ export const loadDeckDeep = async (deck_name: string, app_dir: string): Promise<
     const concepts = JSON.parse(
       (await cache.cached_zip.entryData(join(deck_name, 'concepts.json'))).toString(),
     ) as ConceptShallow[];
-    return { manifest, concepts } as Deck;
+    cache.cached_deck = { manifest, concepts } as Deck;
+    return cache.cached_deck;
   } catch {
     await cache.cached_zip.close();
     cache.cached_zip = undefined;
+    return null;
+  }
+};
+
+export const loadConceptDeep = async (
+  deck_name: string,
+  concept_id: string,
+  app_dir: string,
+): Promise<Concept | null> => {
+  if (cache.cached_name != deck_name || !cache.cached_zip) {
+    cache.cached_name = deck_name;
+    if (cache.cached_zip) {
+      await cache.cached_zip.close();
+    }
+    cache.cached_zip = new StreamZip.async({ file: join(app_dir, 'decks', `${deck_name}.zip`) });
+    cache.cached_deck = undefined;
+  }
+
+  try {
+    return JSON.parse(
+      (
+        await cache.cached_zip.entryData(join(deck_name, 'concepts', `${concept_id}.json`))
+      ).toString(),
+    ) as Concept;
+  } catch {
     return null;
   }
 };
