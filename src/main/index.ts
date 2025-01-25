@@ -3,6 +3,7 @@ import { join } from 'path';
 import { electronApp, optimizer, is } from '@electron-toolkit/utils';
 import icon from '../../resources/icon.png?asset';
 import { loadDecks } from './endpoints/LoadDecks';
+import { loadDeck } from './endpoints/LoadDeck';
 
 const createWindow = () => {
   // Create the browser window.
@@ -48,6 +49,14 @@ const apiSetup = () => {
 
   ipcMain.handle('decks/directory', async () => {
     return join(app.getPath('userData'), 'decks');
+  });
+
+  ipcMain.handle('decks/fetch', async (_: Electron.IpcMainInvokeEvent, deck_name: string) => {
+    const deck = await loadDeck(app, deck_name);
+    if (!deck) {
+      throw Error(`Could not load deck ${deck_name}`);
+    }
+    return deck;
   });
 };
 

@@ -7,6 +7,8 @@ const api = {
   fetchDecks: async (): Promise<DeckShallow[]> => electronAPI.ipcRenderer.invoke('decks/all'),
   fetchDeckDirectory: async (): Promise<string> =>
     electronAPI.ipcRenderer.invoke('decks/directory'),
+  fetchDeck: async (deck_name: string): Promise<string> =>
+    electronAPI.ipcRenderer.invoke('decks/fetch', deck_name),
   versions: {
     chrome: electronAPI.process.versions.chrome,
     electron: electronAPI.process.versions.electron,

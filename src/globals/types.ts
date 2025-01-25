@@ -53,6 +53,7 @@ export interface Review {
 export interface Api {
   fetchDecks: () => Promise<DeckShallow[]>;
   fetchDeckDirectory: () => Promise<string>;
+  fetchDeck: (deck_name: string) => Promise<Deck>;
   versions: {
     chrome: string;
     electron: string;
