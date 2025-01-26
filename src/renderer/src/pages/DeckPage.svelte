@@ -1,8 +1,9 @@
 <script lang="ts">
+  import type { Deck } from '../../../globals/types';
   import { globals } from '../globals.svelte';
 
   let error = $state(false);
-  let deck = $state(null);
+  let deck = $state<Deck | null>(null);
 
   if (globals.currDeck) {
     window.api
@@ -31,6 +32,9 @@
   <p class="tip">
     {deck.manifest.name}
   </p>
+  {#each deck.concepts as concept}
+    <p>{concept.name}: {concept.brief}</p>
+  {/each}
 {/if}
 <div class="actions">
   <div class="action">
