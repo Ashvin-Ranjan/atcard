@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Deck from '../components/Deck.svelte';
   import { globals } from '../globals.svelte';
 
   let error = $state(false);
@@ -38,8 +39,6 @@
 {:else}
   <p class="tip">Decks</p>
   {#each globals.decks as deck}
-    <div>
-      {deck.name}
-    </div>
+    <Deck {deck} />
   {/each}
 {/if}

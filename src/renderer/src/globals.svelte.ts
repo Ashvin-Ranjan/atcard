@@ -1,6 +1,6 @@
 import type { DeckShallow, Review } from '../../globals/types';
 
-type Routes = 'home' | 'review';
+type Routes = 'home' | 'review' | 'deck';
 
 interface Globals {
   route: Routes;
