@@ -4,6 +4,7 @@
   import { globals } from './globals.svelte';
   import Review from './pages/Review.svelte';
   import DeckPage from './pages/DeckPage.svelte';
+  import ConceptPage from './pages/ConceptPage.svelte';
 </script>
 
 {#if globals.route == 'home'}
@@ -12,6 +13,8 @@
   <Review />
 {:else if globals.route == 'deck'}
   <DeckPage />
+{:else if globals.route == 'concept'}
+  <ConceptPage />
 {:else}
   <Error />
 {/if}

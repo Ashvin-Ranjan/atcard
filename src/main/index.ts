@@ -4,6 +4,7 @@ import { electronApp, optimizer, is } from '@electron-toolkit/utils';
 import icon from '../../resources/icon.png?asset';
 import { loadDecks } from './endpoints/LoadDecks';
 import { loadDeck } from './endpoints/LoadDeck';
+import { loadConcept } from './endpoints/LoadConcept';
 
 const createWindow = () => {
   // Create the browser window.
@@ -52,13 +53,24 @@ const apiSetup = () => {
     return join(app.getPath('userData'), 'decks');
   });
 
-  ipcMain.handle('decks/fetch', async (_: Electron.IpcMainInvokeEvent, deck_name: string) => {
-    const deck = await loadDeck(app, deck_name);
+  ipcMain.handle('decks/fetch', async (_: Electron.IpcMainInvokeEvent, deck_id: string) => {
+    const deck = await loadDeck(app, deck_id);
     if (!deck) {
-      throw Error(`Could not load deck ${deck_name}`);
+      throw Error(`Could not load deck ${deck_id}`);
     }
     return deck;
   });
+
+  ipcMain.handle(
+    'concepts/fetch',
+    async (_: Electron.IpcMainInvokeEvent, deck_id: string, concept_id: string) => {
+      const deck = await loadConcept(app, deck_id, concept_id);
+      if (!deck) {
+        throw Error(`Could not load concept ${concept_id} from ${deck_id}`);
+      }
+      return deck;
+    },
+  );
 };
 
 // This method will be called when Electron has finished

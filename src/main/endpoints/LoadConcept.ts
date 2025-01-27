@@ -6,7 +6,7 @@ import { loadConceptDeep } from '../utils/DeckFileUtils';
 
 export const loadConcept = async (
   app: App,
-  deck_name: string,
+  deck_id: string,
   concept_id: string,
 ): Promise<Concept | null> => {
   const deck_dir = join(app.getPath('userData'), 'decks');
@@ -19,7 +19,7 @@ export const loadConcept = async (
   }
 
   try {
-    return await loadConceptDeep(deck_name, concept_id, app.getPath('userData'));
+    return await loadConceptDeep(deck_id, concept_id, app.getPath('userData'));
   } catch (e) {
     console.log(e);
     return null;

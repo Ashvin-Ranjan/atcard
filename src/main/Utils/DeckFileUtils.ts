@@ -17,13 +17,12 @@ export const loadDeckShallow = async (
 ): Promise<DeckShallow | null> => {
   let out: any = {};
   const zip = new StreamZip.async({ file: join(app_dir, 'decks', `${deck_id}.zip`) });
-  console.log(deck_id);
   try {
     const manifest = JSON.parse((await zip.entryData(join(deck_id, 'manifest.json'))).toString());
     const concepts = JSON.parse((await zip.entryData(join(deck_id, 'concepts.json'))).toString());
     await zip.close();
     out = { ...manifest, totalConcepts: Object.values(concepts).length };
-  } catch (e) {
+  } catch {
     await zip.close();
     return null;
   }
@@ -45,8 +44,7 @@ export const loadDeckShallow = async (
       (await fs.readFile(join(app_dir, 'deck_data', `${deck_id}.json`))).toString(),
     );
     out.studied = !!review_data.reviews ? review_data.reviews.length : 0;
-  } catch (e) {
-    console.log(e);
+  } catch {
     return null;
   }
 

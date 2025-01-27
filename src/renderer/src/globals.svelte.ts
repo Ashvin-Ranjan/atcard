@@ -1,12 +1,13 @@
 import type { DeckShallow, Review } from '../../globals/types';
 
-type Routes = 'home' | 'review' | 'deck';
+type Routes = 'home' | 'review' | 'deck' | 'concept';
 
 interface Globals {
   route: Routes;
   decks?: DeckShallow[];
   deckPath?: string;
   currDeck?: string;
+  currConcept?: string;
   currReviews?: Review[];
 }
 

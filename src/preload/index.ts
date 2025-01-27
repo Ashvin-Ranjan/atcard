@@ -1,14 +1,16 @@
 import { contextBridge } from 'electron';
 import { electronAPI } from '@electron-toolkit/preload';
-import { type DeckShallow } from '../globals/types';
+import { Concept, Deck, DeckShallow } from '../globals/types';
 
 // Custom APIs for renderer
 const api = {
   fetchDecks: async (): Promise<DeckShallow[]> => electronAPI.ipcRenderer.invoke('decks/all'),
   fetchDeckDirectory: async (): Promise<string> =>
     electronAPI.ipcRenderer.invoke('decks/directory'),
-  fetchDeck: async (deck_name: string): Promise<string> =>
-    electronAPI.ipcRenderer.invoke('decks/fetch', deck_name),
+  fetchDeck: async (deck_id: string): Promise<Deck> =>
+    electronAPI.ipcRenderer.invoke('decks/fetch', deck_id),
+  fetchConcept: async (deck_id: string, concept_id: string): Promise<Concept> =>
+    electronAPI.ipcRenderer.invoke('concepts/fetch', deck_id, concept_id),
   versions: {
     chrome: electronAPI.process.versions.chrome,
     electron: electronAPI.process.versions.electron,
