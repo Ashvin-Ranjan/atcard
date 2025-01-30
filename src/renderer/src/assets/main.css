@@ -96,6 +96,14 @@ code {
   color: #e2ff77;
 }
 
+.answer-example {
+  color: #ff7777;
+}
+
+.concept {
+  display: flex;
+}
+
 .svelte {
   background: -webkit-linear-gradient(315deg, #ff3e00 35%, #647eff);
   background-clip: text;

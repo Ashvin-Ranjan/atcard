@@ -5,6 +5,8 @@ import icon from '../../resources/icon.png?asset';
 import { loadDecks } from './endpoints/LoadDecks';
 import { loadDeck } from './endpoints/LoadDeck';
 import { loadConcept } from './endpoints/LoadConcept';
+import { addReview } from './endpoints/EditReviews';
+import { loadPendingReviews } from './endpoints/LoadReviews';
 
 const createWindow = () => {
   // Create the browser window.
@@ -71,6 +73,21 @@ const apiSetup = () => {
       return deck;
     },
   );
+
+  ipcMain.handle(
+    'reviews/add',
+    async (_: Electron.IpcMainInvokeEvent, deck_id: string, concept_id: string) => {
+      await addReview(app, deck_id, concept_id);
+    },
+  );
+
+  ipcMain.handle('reviews/get_current', async (_: Electron.IpcMainInvokeEvent, deck_id: string) => {
+    const deck = await loadPendingReviews(app, deck_id);
+    if (!deck) {
+      throw Error(`Could not load reviews for ${deck_id}`);
+    }
+    return deck;
+  });
 };
 
 // This method will be called when Electron has finished

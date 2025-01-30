@@ -37,6 +37,22 @@
   {/each}
 {/if}
 <div class="actions">
+  {#if deck}
+    <div class="action">
+      <button
+        onclick={() => {
+          window.api
+            .getPendingReviews(deck.manifest.id)
+            .then((v) => {
+              console.log('loaded', v);
+              globals.currReviews = v;
+              globals.route = 'review';
+            })
+            .catch((e) => console.log(e));
+        }}>Review</button
+      >
+    </div>
+  {/if}
   <div class="action">
     <button
       onclick={() => {

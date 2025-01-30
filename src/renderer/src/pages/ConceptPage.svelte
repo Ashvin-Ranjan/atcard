@@ -32,9 +32,16 @@
   <p class="tip">
     {concept.name}
   </p>
-  {#each concept.examples as example}
-    <p>{example.inputString}</p>
-  {/each}
+  <div>
+    {#each concept.examples as example}
+      {#each example.inputString.split('{}') as section, i}
+        <span>{section}</span>
+        {#if i != example.inputString.split('{}').length - 1 || example.inputString.split('{}').length == 1}<span
+            class="answer-example">{example.answers[0]}</span
+          >{/if}
+      {/each}
+    {/each}
+  </div>
 {/if}
 <div class="actions">
   <div class="action">
@@ -44,4 +51,15 @@
       }}>Return</button
     >
   </div>
+  {#if !!concept}
+    <div class="action">
+      <button
+        onclick={() => {
+          window.api.addReview(globals.currDeck, globals.currConcept).catch((e) => {
+            console.log(e);
+          });
+        }}>Add to reviews</button
+      >
+    </div>
+  {/if}
 </div>

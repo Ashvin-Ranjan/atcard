@@ -1,5 +1,12 @@
 import { join } from 'path';
-import { Concept, ConceptShallow, Deck, DeckManifest, DeckShallow } from '../../globals/types';
+import {
+  Concept,
+  ConceptReview,
+  ConceptShallow,
+  Deck,
+  DeckManifest,
+  DeckShallow,
+} from '../../globals/types';
 import StreamZip from 'node-stream-zip';
 import fs from 'fs/promises';
 
@@ -100,5 +107,52 @@ export const loadConceptDeep = async (
     ) as Concept;
   } catch {
     return null;
+  }
+};
+
+export const loadDeckReviews = async (
+  deck_id: string,
+  app_dir: string,
+): Promise<ConceptReview[] | null> => {
+  const deck_data_dir = join(app_dir, 'deck_data');
+  try {
+    await fs.access(deck_data_dir);
+  } catch {
+    await fs.mkdir(deck_data_dir);
+    await fs.writeFile(join(deck_data_dir, `${deck_id}.json`), `{"reviews": []}`);
+    return [];
+  }
+
+  try {
+    return await JSON.parse((await fs.readFile(join(deck_data_dir, `${deck_id}.json`))).toString())[
+      'reviews'
+    ];
+  } catch {
+    return null;
+  }
+};
+
+export const writeDeckReviews = async (
+  deck_id: string,
+  app_dir: string,
+  reviews: ConceptReview[],
+): Promise<void> => {
+  const deck_data_dir = join(app_dir, 'deck_data');
+  try {
+    await fs.access(deck_data_dir);
+  } catch {
+    await fs.mkdir(deck_data_dir);
+    await fs.writeFile(join(deck_data_dir, `${deck_id}.json`), JSON.stringify({ reviews }));
+    return;
+  }
+
+  try {
+    let newData = JSON.parse(
+      (await fs.readFile(join(deck_data_dir, `${deck_id}.json`))).toString(),
+    );
+    newData['reviews'] = reviews;
+    await fs.writeFile(join(deck_data_dir, `${deck_id}.json`), JSON.stringify(newData));
+  } catch (e) {
+    throw e;
   }
 };

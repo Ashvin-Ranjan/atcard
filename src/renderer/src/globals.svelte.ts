@@ -1,4 +1,4 @@
-import type { DeckShallow, Review } from '../../globals/types';
+import type { ConceptReview, DeckShallow } from '../../globals/types';
 
 type Routes = 'home' | 'review' | 'deck' | 'concept';
 
@@ -8,7 +8,7 @@ interface Globals {
   deckPath?: string;
   currDeck?: string;
   currConcept?: string;
-  currReviews?: Review[];
+  currReviews?: ConceptReview[];
 }
 
 export const globals: Globals = $state({

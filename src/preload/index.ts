@@ -11,6 +11,10 @@ const api = {
     electronAPI.ipcRenderer.invoke('decks/fetch', deck_id),
   fetchConcept: async (deck_id: string, concept_id: string): Promise<Concept> =>
     electronAPI.ipcRenderer.invoke('concepts/fetch', deck_id, concept_id),
+  addReview: async (deck_id: string, concept_id: string): Promise<void> =>
+    electronAPI.ipcRenderer.invoke('reviews/add', deck_id, concept_id),
+  getPendingReviews: async (deck_id: string): Promise<void> =>
+    electronAPI.ipcRenderer.invoke('reviews/get_current', deck_id),
   versions: {
     chrome: electronAPI.process.versions.chrome,
     electron: electronAPI.process.versions.electron,

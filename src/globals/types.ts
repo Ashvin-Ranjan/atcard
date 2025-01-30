@@ -55,6 +55,8 @@ export interface Api {
   fetchDeckDirectory: () => Promise<string>;
   fetchDeck: (deck_id: string) => Promise<Deck>;
   fetchConcept: (deck_id: string, concept_id: string) => Promise<Concept>;
+  getPendingReviews: (deck_id: string) => Promise<ConceptReview[]>;
+  addReview: (deck_id: string, concept_id: string) => Promise<void>;
   versions: {
     chrome: string;
     electron: string;

@@ -1,5 +1,6 @@
 <script lang="ts">
   import { globals } from '../globals.svelte';
+  import { generateReview } from '../scripts/ReviewScripts.svelte';
 
   const submitAnswer = () => {
     if (!currAnswer) return;
@@ -8,8 +9,12 @@
       currResult = null;
       reviewIndex += 1;
       currAnswer = '';
+      currReview = null;
       if (reviewIndex >= globals.currReviews.length) {
+        // TODO: send review updates to the backend
         globals.route = 'deck';
+      } else {
+        generateReview(globals.currReviews[reviewIndex]).then((v) => (currReview = v));
       }
       return;
     }
@@ -27,12 +32,16 @@
   let currAnswer: string = $state('');
   let currResult: number | null = $state(null);
   let mixupText: string = $state('');
-  let currReview = $derived(globals.currReviews ? globals.currReviews[reviewIndex] : null);
+  let currReview = $state(null);
   let inputField = $state(null);
   $effect(() => {
     currResult;
-    inputField.focus();
+    if (!!currReview) inputField.focus();
   });
+  console.log(globals.currReviews);
+  if (!!globals.currReviews && globals.currReviews.length) {
+    generateReview(globals.currReviews[0]).then((v) => (currReview = v));
+  }
 </script>
 
 <svelte:window
@@ -47,17 +56,21 @@
     }
   }}
 />
-{#if !!globals.currReviews}
-  <p>
-    {currReview.inputString}
-  </p>
-  <input bind:this={inputField} bind:value={currAnswer} disabled={!!currResult} />
-  {#if currResult == 0}
-    <p class="mixup">{mixupText}</p>
-  {:else if currResult == 1}
-    <p class="correct">Correct!</p>
-  {:else if currResult == 2}
-    <p class="wrong">Wrong!</p>
+{#if !!globals.currReviews && globals.currReviews.length}
+  {#if !!currReview}
+    <p>
+      {currReview.inputString}
+    </p>
+    <input bind:this={inputField} bind:value={currAnswer} disabled={!!currResult} />
+    {#if currResult == 0}
+      <p class="mixup">{mixupText}</p>
+    {:else if currResult == 1}
+      <p class="correct">Correct!</p>
+    {:else if currResult == 2}
+      <p class="wrong">Wrong!</p>
+    {/if}
+  {:else}
+    <p class="tip">Loading review...</p>
   {/if}
 {:else}
   <p class="tip">No Reviews Loaded</p>
