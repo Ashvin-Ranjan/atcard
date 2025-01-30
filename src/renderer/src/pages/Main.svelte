@@ -37,8 +37,12 @@
 {:else if globals.decks.length == 0}
   <p class="tip">No Decks, start by adding one to <code>{globals.deckPath}</code></p>
 {:else}
-  <p class="tip">Decks</p>
-  {#each globals.decks as deck}
-    <Deck {deck} />
-  {/each}
+  <div class="page">
+    {#each globals.decks as deck}
+      <Deck {deck} />
+    {/each}
+  </div>
+  <style>
+    @import '../assets/decks.css';
+  </style>
 {/if}

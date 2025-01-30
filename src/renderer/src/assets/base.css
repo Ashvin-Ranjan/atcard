@@ -1,34 +1,50 @@
 :root {
-  --ev-c-white: #ffffff;
-  --ev-c-white-soft: #f8f8f8;
-  --ev-c-white-mute: #f2f2f2;
+    /* Primary: Summer Sky */
+    --primary-100: #F2F8FF;
+    --primary-200: #C4E1FF;
+    --primary-300: #95CEFC;
+    --primary-400: #65BDF5;
+    --primary-500: #35ACE8;
+    --primary-600: #158BB8;
+    --primary-700: #076B87;
+    --primary-800: #034957;
+    --primary-900: #012326;
 
-  --ev-c-black: #1b1b1f;
-  --ev-c-black-soft: #222222;
-  --ev-c-black-mute: #282828;
+    /* Accent: Brick Orange */
+    --accent-100: #FFF9F2;
+    --accent-200: #FEDCB9;
+    --accent-300: #F8B57E;
+    --accent-400: #E68343;
+    --accent-500: #C44B0E;
+    --accent-600: #9D2E05;
+    --accent-700: #751A01;
+    --accent-800: #4E0C00;
+    --accent-900: #260400;
 
-  --ev-c-gray-1: #515c67;
-  --ev-c-gray-2: #414853;
-  --ev-c-gray-3: #32363f;
-
-  --ev-c-text-1: rgba(255, 255, 245, 0.86);
-  --ev-c-text-2: rgba(235, 235, 245, 0.6);
-  --ev-c-text-3: rgba(235, 235, 245, 0.38);
-
-  --ev-button-alt-border: transparent;
-  --ev-button-alt-text: var(--ev-c-text-1);
-  --ev-button-alt-bg: var(--ev-c-gray-3);
-  --ev-button-alt-hover-border: transparent;
-  --ev-button-alt-hover-text: var(--ev-c-text-1);
-  --ev-button-alt-hover-bg: var(--ev-c-gray-2);
+    /* Neutral */
+    --neutral-100: #FAFBFC;
+    --neutral-200: #E6E8EB;
+    --neutral-300: #D2D6D9;
+    --neutral-400: #BFC4C7;
+    --neutral-500: #ACB2B5;
+    --neutral-600: #888F91;
+    --neutral-700: #656C6E;
+    --neutral-800: #43494A;
+    --neutral-950: #333737;
+    --neutral-900: #222626;
+    --neutral-1000: #1e2020;
+    --neutral-1100: #0b0b0b;
+    
 }
 
-:root {
-  --color-background: var(--ev-c-black);
-  --color-background-soft: var(--ev-c-black-soft);
-  --color-background-mute: var(--ev-c-black-mute);
 
-  --color-text: var(--ev-c-text-1);
+:root {
+  --color-background: var(--neutral-1100);
+  --color-background-soft: var(--neutral-1000);
+  --color-background-mute: var(--neutral-900);
+
+  --color-text-standard: var(--neutral-200);
+  --color-text-title: var(--primary-400);
 }
 
 *,
@@ -45,8 +61,8 @@ ul {
 
 body {
   min-height: 100vh;
-  color: var(--color-text);
-  background: var(--color-background);
+  color: var(--color-text-standard);
+  background: var(--color-background-soft);
   line-height: 1.6;
   font-family:
     Inter,

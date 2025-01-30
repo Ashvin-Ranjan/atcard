@@ -44,7 +44,6 @@
           window.api
             .getPendingReviews(deck.manifest.id)
             .then((v) => {
-              console.log('loaded', v);
               globals.currReviews = v;
               globals.route = 'review';
             })

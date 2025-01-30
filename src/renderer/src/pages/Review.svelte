@@ -38,7 +38,7 @@
     currResult;
     if (!!currReview) inputField.focus();
   });
-  console.log(globals.currReviews);
+
   if (!!globals.currReviews && globals.currReviews.length) {
     generateReview(globals.currReviews[0]).then((v) => (currReview = v));
   }
@@ -46,6 +46,7 @@
 
 <svelte:window
   onkeydown={(e) => {
+    if (!currReview) return;
     if (e.key == 'Enter') {
       submitAnswer();
     }
